@@ -1,0 +1,163 @@
+\documentclass[11pt]{beamer}
+\usetheme{CambridgeUS}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{nameref}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\author{Julian Oestreich}
+\title[Minimierung von Baumautomaten]{Satz von Myhill-Nerode für reguläre Baumsprachen und Minimierung von Baumautomaten}
+%\setbeamercovered{transparent} 
+\setbeamercolor{block title}{bg=red!30, fg=black}
+\setbeamertemplate{navigation symbols}{}
+
+\newif\ifplacelogo % create a new conditional
+\placelogotrue % set it to true
+
+\logo{\ifplacelogo\includegraphics[height=1.2cm]{uni_logo.pdf}\fi} 
+\institute[Universität Leipzig]{\small{¸Seminarmodul Automatentheorie} \\ Universität Leipzig} 
+%\date{} 
+%\subject{} 
+
+
+\makeatletter
+\newcommand*{\currentsection}{\@currentlabelname}
+\newcommand*{\theheader}{\thesection.\thesubsection.  \currentsection}
+\newcommand{\superhyperref}[2]{
+\color{blue}
+\href{#1}{#2}
+\color{black}}
+\makeatother
+
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\placelogofalse
+
+\section{Erinnerung: Äquivalenzrelationen}
+\begin{frame}{\thesection. \currentsection}
+\begin{itemize}
+	\item Eine Relation \mbox{$ \equiv\subseteq A \times A $} nenn man \textit{Äquivalenzrelation} gdw. sie \textit{reflexiv, transitiv} und \textit{symetrisch} ist¸
+	\item Die Menge \mbox{$[a]_\equiv \coloneqq \{ a^{'} |  a^{'} \equiv a\} $} wird \textit{Äquivalenzklasse} von \textit{a} genannt
+	\item Eine Äquivalenzrelation hat \textit{endlichen Index}, wenn sie endlich viele Äquivalenzklassen bildet
+\end{itemize}
+\end{frame}
+
+\section{Kongruenz}
+\begin{frame}{\thesection. \currentsection}
+
+	\begin{block}{Kongruenz} Eine Äquivalenzrelation \mbox{$\equiv$}¸ auf \mbox{$\mathcal{T(F)} $} ist eine \textit{Kongruenz} gdw. 
+	$$\forall f \in \mathcal{F}_n:(\forall i \leq n: u_i \equiv v_i) \Longrightarrow f(u_1,...,u_n) \equiv f(v_1,...,v_n) $$
+	\end{block}
+	\begin{itemize}
+	\item Intuition: Funktionen sind äquivalent bei Anwendung auf äquivalente Funktionsargumente
+	\item $\equiv$ ist kongruent gdw. abgeschlossen unter (1-löchrigen) Kontexten, d.h. $$ \forall C u v : u \equiv v \Longrightarrow C[u] \equiv C[v]$$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{\thesection. \currentsection}
+Für eine Sprache L definieren wir die Kongruenz $\equiv_L$ als
+$$ u \equiv_L v\; gdw.\; \forall C: C[u] \in L\; gdw.\; C[v] \in L $$
+\begin{itemize}
+	\item Offensichtlich \textit{Äquivalenzrelation}
+	\item Offensichtlich \textit{kongruent}
+	\item Intuition: Die Sprache L unterscheidet nicht zwischen \textit{u} und \textit{v}
+\end{itemize}
+\end{frame}
+
+\section{Deterministische endliche Baumautomaten}
+\begin{frame}{\thesection. \currentsection}
+Vollständige DFTA $(Q,\mathcal{F},Q_f,\delta)$
+\begin{itemize}
+	\item mit $\delta : (\mathcal{F}_n \times Q^{n} \rightarrow Q)_n $
+	\item entspricht $\Delta$:
+	$$ f(q_1,...,q_n) \rightarrow q \; gdw. \; \delta(f, q_1,...,q_n) = q  $$
+	\item Erweiterung für Bäume:
+	$$ \delta(f(t_1,...,t_n)) = \delta(f, \delta(t_1),...,\delta(t_n))$$
+	\item kompatibel mit $\rightarrow_A$, d.h
+	$$ t \rightarrow_A q \; gdw. \; \delta(t) = q $$
+\end{itemize}
+\end{frame}
+
+
+\section{Das Myhill-Nerode Theorem}
+\begin{frame}{\thesection. \currentsection}
+\begin{block}{Anwendung}
+	\begin{itemize}
+		\item \textit{Notwendiges und hinreichendes Kriterium} dafür ob $\mathcal{L}$ \textit{regulär} ist.
+		\item Verglichen mit \textit{Pumping-Lemma} kann Myhill-Nerode immer Aussage tätigen ob $\mathcal{L}$ regulär.
+		\item Anzahl der Zustände des¸ DFTA $\mathcal{A}_{min}$ der $\mathcal{L}$ akzeptiert entspricht dem Index der Äquivalenzklassen der Nerode Relation $\sim$
+	\end{itemize}
+\end{block}¸
+\end{frame}
+
+\begin{frame}{\thesection. \currentsection}
+\begin{block}{Theorem}
+	Diese 3 Aussagen sind äquivalent:
+	\begin{enumerate}
+		\item L ist eine erkennbare Baumsprache
+		\item L ist die Vereinigung einiger Äquivalenzklassen von endlicher Kongruenz
+		\item Die Relation \mbox{$ \equiv_L $} ist eine endliche Kongruenz
+	\end{enumerate}
+\end{block}
+\end{frame}
+
+\subsection{Beweis 1 $\rightarrow$ 2}
+\begin{frame}{\thesection.\thesubsection. \currentsection}
+\begin{itemize}
+	\item L reg. $\rightarrow$ L wird von DFTA $(Q,\mathcal{F},Q_f,\delta)$ erkannt
+	\item $\delta$ Übergangsfunktion
+	\item Ann.: $\equiv_A$ auf T($ \mathcal{F} $): $u \equiv_A v \; gdw. \; \delta(u)=\delta(v)$
+	\item offens. kongruent
+	\item $\equiv_A¸$ hat endlichen Index (max. $|Q|$)
+	\item Also haben wir $L = \cup \{[u] \; | \; \delta(u) \in Q_f\} $
+\end{itemize}
+\end{frame}
+
+\subsection{Beweis 2 $\rightarrow$ 3}
+\begin{frame}{\thesection.\thesubsection. \currentsection}
+\begin{itemize}
+	\item $\sim$ Kongruenz mit endl. Index
+	
+	\item $\mathcal{F(T)}\//\sim \; = \{\underbrace{[t_1],[t_2],...,[t_i]}_{\substack{L\;{\overset{(2)}{=}} \bigcup_{j=1}^{i} [t_j] }},...,[t_n]\}$
+	\item Ann.: u $\sim$ v
+	\item Dann \begin{align*}
+	\forall C &\in C(\mathcal{F}): \; C[u] \sim C[v] \\
+	&{\overset{(i)}{\longrightarrow}}C[u] \in L  \\
+	&{\overset{(ii)}{\longrightarrow}} \; \exists j: C[u] \in t_j \\
+	&{\overset{(i)}{\longrightarrow}} C[v] \in t_j \\
+	&{\overset{(ii)}{\longrightarrow}} C[v] \in L
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{\thesection.\thesubsection. \currentsection}
+\begin{itemize}
+	\item $ C[v] \in L \longrightarrow C[u] \in L$ analog
+	\item $\Longrightarrow \forall C: C[u] \in L \Longleftrightarrow C[v] \in L$ 
+	\item $u \equiv_L v $
+	\item da $ (u,v) \in \;¸ \sim \; \longrightarrow (u,v) \in \equiv_L$
+	\item und $\sim \; \subseteq \; ¸\equiv_L$, da $\sim$ \textit{Verfeinerung} von $\equiv_L$
+\end{itemize}
+¸\end{frame}
+
+\subsection{Beweis 3 $\rightarrow$ 1}
+\begin{frame}{\thesection.\thesubsection. \currentsection}
+\begin{itemize}
+	\item 
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}

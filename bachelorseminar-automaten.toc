@@ -1,0 +1,8 @@
+\babel@toc {german}{}
+\beamer@sectionintoc {1}{Erinnerung: \IeC {\"A}quivalenzrelationen}{2}{0}{1}
+\beamer@sectionintoc {2}{Kongruenz}{3}{0}{2}
+\beamer@sectionintoc {3}{Deterministische endliche Baumautomaten}{5}{0}{3}
+\beamer@sectionintoc {4}{Das Myhill-Nerode Theorem}{6}{0}{4}
+\beamer@subsectionintoc {4}{1}{Beweis 1 $\rightarrow $ 2}{8}{0}{4}
+\beamer@subsectionintoc {4}{2}{Beweis 2 $\rightarrow $ 3}{9}{0}{4}
+\beamer@subsectionintoc {4}{3}{Beweis 3 $\rightarrow $ 1}{11}{0}{4}
